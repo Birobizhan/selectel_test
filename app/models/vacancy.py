@@ -8,7 +8,6 @@ from app.db.base import Base
 
 class Vacancy(Base):
     __tablename__ = "vacancies"
-    __table_args__ = (UniqueConstraint("external_id", name="uq_vacancies_external_id"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String, nullable=False)
@@ -23,4 +22,4 @@ class Vacancy(Base):
         nullable=False,
         server_default=func.now(),
     )
-    external_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    external_id: Mapped[int] = mapped_column(Integer, nullable=False, unique=True)
